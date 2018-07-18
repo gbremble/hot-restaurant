@@ -3,30 +3,34 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
-var request = require("request");
 var app = express();
 var PORT = 3000;
 
 // Sets up the Express app to handle data parsing
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 
 // Reservations (DATA)
 // =============================================================
 var reservations = [{
-    name: "Leo Daniel",
-    phoneNumber: "252-123-4567",
-    email: "leedizzle@aol.com"
+    "name": "Leo Daniel",
+    "phone": "252-123-4567",
+    "email": "leedizzle@aol.com",
+    "UUID": "124663"
   },
   {
-    name: "Johnny Walker",
-    phoneNumber: "123-456-7890",
-    email: "drunkguy@bar.net"
+    "name": "Johnny Walker",
+    "phone": "123-456-7890",
+    "email": "drunkguy@bar.net",
+    "UUID": "1"
   },
   {
-    name: "Scott Johnson",
-    phoneNumber: "252-345-6789",
-    email: "js-guru@boss.com"
+    "name": "Scott Johnson",
+    "phone": "252-345-6789",
+    "email": "js-guru@boss.com",
+    "UUID": "44"
   }
 ];
 
@@ -35,10 +39,18 @@ var reservations = [{
  * id="userPhone"
  * id="userEmail"
  * id="userUID"
+ * id="reservationSubmit"
  **/
 
 var reservationsReal = [];
 
+// function NewReservation (name, phone, email, uid) {
+//    this.name = name;
+//    this.phone = phone;
+//    this.email = email;
+//    this.uid = uid;
+$(#userName).val().trim()
+// }
 var waitList = [];
 
 // Routes
