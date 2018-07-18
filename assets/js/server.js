@@ -3,9 +3,13 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
-
+var request = require("request");
 var app = express();
 var PORT = 3000;
+
+// Sets up the Express app to handle data parsing
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Reservations (DATA)
 // =============================================================
@@ -33,6 +37,10 @@ var reservations = [{
  * id="userUID"
  **/
 
+var reservationsReal = [];
+
+var waitList = [];
+
 // Routes
 // =============================================================
 
@@ -53,42 +61,40 @@ app.get("/tables", function (req, res) {
 // Reservations
 // Displays all reservations
 app.get("/api/reservations", function (req, res) {
-  return res.json(reservations);
-  // var reservationCount = res
+  res.json(reservations);
 });
 
 // POST endpoint takes in JSON object
-app.post("api/reservations", function (req, res) {
-  var newReservation = req.body;
-
-  // check if there is any place left-5 tables
+app.post("/api/reservations", function (req, res) {
   if (reservations.length < 5) {
-
+    reservations.push(req.body);
+    res.json(true);
+  } else {
+    waitList.push(req.body);
+    res.json(false);
   }
-
-
 });
 
 // =======================
 
-request.open('GET', 'url', true);
-request.onload = function () {
+// request.open('GET', 'url', true);
+// request.onload = function () {
 
-  // Begin accessing JSON data here
-  var data = JSON.parse(this.response);
+//   // Begin accessing JSON data here
+//   var data = JSON.parse(this.response);
 
-  if (request.status >= 200 && request.status < 400) {
-    // if reservations >= 5, POST to WAITING-LIST
+//   if (request.status >= 200 && request.status < 400) {
+//     // if reservations >= 5, POST to WAITING-LIST
 
-    data.forEach(movie => {
-      console.log(movie.title);
-    });
-  } else {
-    console.log('error');
-  }
-}
+//     data.forEach(movie => {
+//       console.log(movie.title);
+//     });
+//   } else {
+//     console.log('error');
+//   }
+// }
 
-request.send();
+// request.send();
 
 // ======================
 
